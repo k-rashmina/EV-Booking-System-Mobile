@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">EVStationOperatorApp</string>
+    <string name="app_logo_description">EV Charging Station App Logo</string>
+    <string name="station_operator_login">Station Operator Login</string>
+    <string name="username_email">Username/Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="scan_booking_qr_code">Scan QR code</string>
+    <string name="logout">Logout</string>
+    <string name="booking_details">Booking Details</string>
+    <string name="booking_id_label">Booking ID</string>
+    <string name="ev_owner_name_label">Owner Name</string>
+    <string name="reservation_time_label">Reservation Time</string>
+    <string name="station_location_label">Station Location</string>
+    <string name="status_label">Status</string>
+    <string name="confirm_and_finalize_session">Confirm Session</string>
+</resources>

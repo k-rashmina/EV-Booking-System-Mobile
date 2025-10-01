@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="#F5F5F5"
+    tools:context=".BookingDetailsActivity">
+
+    <TextView
+        android:id="@+id/headerTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/booking_details"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/bookingDetailsCard"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="4dp"
+        app:layout_constraintTop_toBottomOf="@id/headerTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <!-- Booking ID -->
+            <TextView
+                android:id="@+id/labelBookingId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/booking_id_label"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <TextView
+                android:id="@+id/textBookingId"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:gravity="end"
+                app:layout_constraintTop_toTopOf="@id/labelBookingId"
+                app:layout_constraintStart_toEndOf="@id/labelBookingId"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="BK-102934"/>
+
+            <!-- EV Owner Name -->
+            <TextView
+                android:id="@+id/labelOwnerName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ev_owner_name_label"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/labelBookingId"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="16dp"/>
+
+            <TextView
+                android:id="@+id/textOwnerName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:gravity="end"
+                app:layout_constraintTop_toTopOf="@id/labelOwnerName"
+                app:layout_constraintStart_toEndOf="@id/labelOwnerName"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="John Doe"/>
+
+            <!-- Reservation Time & Date -->
+            <TextView
+                android:id="@+id/labelReservationTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/reservation_time_label"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/labelOwnerName"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="16dp"/>
+
+            <TextView
+                android:id="@+id/textReservationTime"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:gravity="end"
+                app:layout_constraintTop_toTopOf="@id/labelReservationTime"
+                app:layout_constraintStart_toEndOf="@id/labelReservationTime"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="2025-10-02 14:30"/>
+
+            <!-- Station Location -->
+            <TextView
+                android:id="@+id/labelStationLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/station_location_label"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/labelReservationTime"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="16dp"/>
+
+            <TextView
+                android:id="@+id/textStationLocation"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:gravity="end"
+                app:layout_constraintTop_toTopOf="@id/labelStationLocation"
+                app:layout_constraintStart_toEndOf="@id/labelStationLocation"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="Colombo 07 Station A"/>
+
+            <!-- Status -->
+            <TextView
+                android:id="@+id/labelStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/status_label"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/labelStationLocation"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="16dp"/>
+
+            <TextView
+                android:id="@+id/textStatus"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:gravity="end"
+                android:textStyle="bold"
+                android:textColor="@android:color/holo_orange_dark"
+                app:layout_constraintTop_toTopOf="@id/labelStatus"
+                app:layout_constraintStart_toEndOf="@id/labelStatus"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="Pending Confirmation"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Button to confirm and finalize -->
+    <Button
+        android:id="@+id/finalizeButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/button_primary_background"
+        android:padding="14dp"
+        android:text="@string/confirm_and_finalize_session"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
