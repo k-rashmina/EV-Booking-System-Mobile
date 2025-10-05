@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    app:cardBackgroundColor="@android:color/transparent"
+    app:cardElevation="0dp"
+    app:cardUseCompatPadding="false">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_card_dark"
+        android:padding="14dp">
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/tvTitle"
+            android:text="Colombo EV Hub"
+            android:textStyle="bold"
+            android:textColor="@color/text_on_dark"
+            android:textSize="16sp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tvTimeRange"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintWidth_percent="0.7"/>
+
+        <!-- Time range (top-right) -->
+        <TextView
+            android:id="@+id/tvTimeRange"
+            android:text="8.00 – 8.30 AM"
+            android:textColor="@color/text_on_dark_dim"
+            android:textSize="12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <!-- Date (under title) -->
+        <TextView
+            android:id="@+id/tvDate"
+            android:text="2025-09-28"
+            android:textColor="@color/text_on_dark_dim"
+            android:textSize="13sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <!-- QR button (left in bottom row) -->
+        <LinearLayout
+            android:id="@+id/btnQr"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="12dp"
+            android:gravity="center_vertical"
+            android:background="@drawable/bg_qr_button"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/tvDate"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <ImageView
+                android:id="@+id/imgQr"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:src="@drawable/ic_qr_code_24"
+                android:tint="@color/text_on_dark"/>
+
+            <TextView
+                android:id="@+id/tvQrLabel"
+                android:text="QR"
+                android:textColor="@color/text_on_dark"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"/>
+        </LinearLayout>
+
+        <!-- Status chip (right in bottom row) -->
+        <TextView
+            android:id="@+id/tvStatus"
+            android:text="Pending"
+            android:textStyle="bold"
+            android:textColor="@color/text_on_chip"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:background="@drawable/bg_status_chip"
+            app:layout_constraintTop_toTopOf="@id/btnQr"
+            app:layout_constraintBottom_toBottomOf="@id/btnQr"
+            app:layout_constraintEnd_toEndOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

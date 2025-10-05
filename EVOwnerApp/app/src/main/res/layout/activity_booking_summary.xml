@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BookingSummary" android:padding="16dp">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent"
+        android:padding="16dp">
+        <TextView android:id="@+id/tvSummaryTitle" android:textStyle="bold"
+            android:text="@string/label_booking_summary" android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView android:id="@+id/tvSumStation" android:text="Station: -"  android:layout_height="wrap_content" android:layout_width="wrap_content"/>
+        <TextView android:id="@+id/tvSumDate" android:text="Date: -" android:layout_height="wrap_content" android:layout_width="wrap_content"/>
+        <TextView android:id="@+id/tvSumTime" android:text="Time: -" android:layout_height="wrap_content" android:layout_width="wrap_content"/>
+        <TextView android:id="@+id/tvSumDuration" android:text="Duration: -" android:layout_height="wrap_content" android:layout_width="wrap_content"/>
+
+        <LinearLayout android:orientation="horizontal" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_marginTop="16dp">
+            <Button android:id="@+id/btnEdit" android:text="@string/action_edit"
+                android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"/>
+            <Space android:layout_width="12dp" android:layout_height="0dp"/>
+            <Button android:id="@+id/btnConfirm" android:text="@string/action_confirm"
+                android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"/>
+        </LinearLayout>
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
