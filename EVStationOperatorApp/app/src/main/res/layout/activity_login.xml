@@ -15,7 +15,7 @@
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_marginTop="64dp"
-        android:src="@drawable/ic_ev_logo"
+        android:src="@drawable/ic_app_logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -45,7 +45,9 @@
         android:background="@drawable/edittext_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/titleTextView" />
+        app:layout_constraintTop_toBottomOf="@id/titleTextView"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"/>
 
     <!-- 3. EditText for password -->
     <EditText
@@ -59,7 +61,9 @@
         android:background="@drawable/edittext_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/usernameEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/usernameEditText"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"/>
 
     <!-- 4. Button for logging in -->
     <Button
@@ -71,7 +75,9 @@
         android:padding="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/passwordEditText"
+        android:layout_marginStart="45dp"
+        android:layout_marginEnd="45dp"/>
 
     <!-- 5. ProgressBar to show while logging in -->
     <ProgressBar

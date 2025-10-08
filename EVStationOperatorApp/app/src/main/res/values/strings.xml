@@ -2,7 +2,7 @@
     <string name="app_name">EVStationOperatorApp</string>
     <string name="app_logo_description">EV Charging Station App Logo</string>
     <string name="station_operator_login">Station Operator Login</string>
-    <string name="username_email">Username/Email</string>
+    <string name="username_email">Email</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
     <string name="scan_booking_qr_code">Scan QR code</string>

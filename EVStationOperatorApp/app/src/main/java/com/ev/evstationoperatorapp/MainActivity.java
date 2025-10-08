@@ -37,14 +37,6 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private RequestQueue requestQueue;
 
-    // --- Constants ---
-    private static final String PREFS_NAME = "OperatorPrefs";
-    private static final String KEY_OPERATOR_NAME = "operatorName";
-    private static final String KEY_AUTH_TOKEN = "authToken";
-    // IMPORTANT: Confirm this URL with your backend team
-    private static final String BOOKING_DETAILS_URL_BASE = "http://10.0.2.2:5148/api/Bookings/";
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,20 +56,27 @@ public class MainActivity extends AppCompatActivity {
         scanQrButton = findViewById(R.id.scanQrButton);
         logoutButton = findViewById(R.id.logoutButton);
 
-        // Set Welcome Message
-        sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        String operatorName = sharedPreferences.getString(KEY_OPERATOR_NAME, "Operator");
-        welcomeTextView.setText("Welcome, " + operatorName + "!");
+        // Set Welcome Message using constants from the central ApiConfig class
+        sharedPreferences = getSharedPreferences(ApiConfig.PREFS_NAME, MODE_PRIVATE);
+        String operatorName = sharedPreferences.getString(ApiConfig.KEY_OPERATOR_NAME, "Operator");
+
+        // Diagnostic logging to confirm what value is being read
+        Log.d("MainActivity", "READ operatorName from SharedPreferences: '" + operatorName + "'");
+
+        welcomeTextView.setText("Welcome, " + operatorName + " !");
 
         // Set up Logout Button
         logoutButton.setOnClickListener(v -> logout());
 
-        // Set up Scan Button
+        // Set up Scan Button to launch in portrait mode
         scanQrButton.setOnClickListener(v -> {
             IntentIntegrator intentIntegrator = new IntentIntegrator(MainActivity.this);
             intentIntegrator.setPrompt("Scan a Booking QR Code");
-            intentIntegrator.setOrientationLocked(true);
             intentIntegrator.setBeepEnabled(true);
+            // Tell the integrator to use our custom portrait-locked activity
+            intentIntegrator.setCaptureActivity(CaptureActivityPortrait.class);
+            // Set orientation lock to false, as the manifest handles it for our custom activity
+            intentIntegrator.setOrientationLocked(false);
             intentIntegrator.initiateScan();
         });
     }
@@ -102,15 +101,16 @@ public class MainActivity extends AppCompatActivity {
      * @param bookingId The ID of the booking to fetch.
      */
     private void fetchBookingDetails(String bookingId) {
-        // Retrieve the saved authentication token
-        String authToken = sharedPreferences.getString(KEY_AUTH_TOKEN, null);
+        // Retrieve the saved authentication token using the key from ApiConfig
+        String authToken = sharedPreferences.getString(ApiConfig.KEY_AUTH_TOKEN, null);
         if (authToken == null) {
             Toast.makeText(this, "Authentication error. Please log in again.", Toast.LENGTH_LONG).show();
             logout();
             return;
         }
 
-        String url = BOOKING_DETAILS_URL_BASE + bookingId;
+        // Build the URL using the base from ApiConfig
+        String url = ApiConfig.BASE_URL + "/api/Operator/validate-qr/" + bookingId;
 
         // Create a custom request to include the Authorization header
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(

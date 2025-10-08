@@ -39,16 +39,6 @@ public class LoginActivity extends AppCompatActivity {
     private RequestQueue requestQueue;
     private SharedPreferences sharedPreferences;
 
-    // --- Constants ---
-    private static final String LOGIN_URL = "http://10.0.2.2:5148/api/Auth/login";
-    private static final String PREFS_NAME = "OperatorPrefs";
-    private static final String KEY_IS_LOGGED_IN = "isLoggedIn";
-    private static final String KEY_OPERATOR_NAME = "operatorName";
-    private static final String KEY_AUTH_TOKEN = "authToken";
-    private static final String KEY_ROLE = "role";
-    private static final String REQUIRED_ROLE = "StationOperator";
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,14 +51,19 @@ public class LoginActivity extends AppCompatActivity {
             return insets;
         });
 
-        sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        if (sharedPreferences.getBoolean(KEY_IS_LOGGED_IN, false)) {
+        // Initialize SharedPreferences using the central constant
+        sharedPreferences = getSharedPreferences(ApiConfig.PREFS_NAME, MODE_PRIVATE);
+
+        // Auto-login check
+        if (sharedPreferences.getBoolean(ApiConfig.KEY_IS_LOGGED_IN, false)) {
             navigateToMainActivity();
             return;
         }
 
+        // Initialize Volley
         requestQueue = Volley.newRequestQueue(this);
 
+        // Link UI elements
         emailEditText = findViewById(R.id.usernameEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
         loginButton = findViewById(R.id.loginButton);
@@ -77,6 +72,7 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(v -> {
             String email = emailEditText.getText().toString().trim();
             String password = passwordEditText.getText().toString().trim();
+
             if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
                 Toast.makeText(LoginActivity.this, "Please enter both email and password", Toast.LENGTH_SHORT).show();
                 return;
@@ -85,6 +81,10 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Performs the login by sending credentials to the backend.
+     * Handles both successful responses (with role checking) and error responses.
+     */
     private void performLogin(String email, String password) {
         loadingProgressBar.setVisibility(View.VISIBLE);
         loginButton.setEnabled(false);
@@ -100,43 +100,58 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
+        // Build the URL from the central ApiConfig
+        String loginUrl = ApiConfig.BASE_URL + "/api/Auth/login";
+
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.POST,
-                LOGIN_URL,
+                loginUrl,
                 requestBody,
                 response -> {
+                    // --- SUCCESS RESPONSE (200 OK) HANDLER ---
                     loadingProgressBar.setVisibility(View.GONE);
                     loginButton.setEnabled(true);
-                    Log.d("LoginActivity", "Login Response: " + response.toString());
+
+                    Log.d("LoginActivity", "Full Login Response: " + response.toString());
+
                     try {
-                        String userRole = response.optString(KEY_ROLE);
-                        if (REQUIRED_ROLE.equals(userRole)) {
+                        // Authorization check (what the user is allowed to do)
+                        String userRole = response.optString(ApiConfig.KEY_ROLE, "");
+
+                        if (ApiConfig.REQUIRED_ROLE.equals(userRole)) {
+                            // User has the correct role, proceed with login
                             String authToken = response.getString("token");
                             String operatorName = response.optString("fullName", "Operator");
 
+                            // Save session data to SharedPreferences
                             SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putBoolean(KEY_IS_LOGGED_IN, true);
-                            editor.putString(KEY_OPERATOR_NAME, operatorName);
-                            editor.putString(KEY_AUTH_TOKEN, authToken);
+                            editor.putBoolean(ApiConfig.KEY_IS_LOGGED_IN, true);
+                            editor.putString(ApiConfig.KEY_OPERATOR_NAME, operatorName);
+                            editor.putString(ApiConfig.KEY_AUTH_TOKEN, authToken);
                             editor.apply();
+
+                            // Diagnostic logging to confirm what was saved
+                            Log.d("LoginActivity", "SAVED operatorName to SharedPreferences: '" + operatorName + "'");
 
                             Toast.makeText(LoginActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
                             navigateToMainActivity();
                         } else {
+                            // User is valid but does not have the required role
                             Toast.makeText(LoginActivity.this, "Access Denied: This app is for Station Operators only.", Toast.LENGTH_LONG).show();
                         }
                     } catch (JSONException e) {
-                        e.printStackTrace();
+                        Log.e("LoginActivity", "Error parsing successful login response", e);
                         Toast.makeText(LoginActivity.this, "Login successful, but response is invalid.", Toast.LENGTH_LONG).show();
                     }
                 },
                 error -> {
+                    // --- ERROR RESPONSE HANDLER ---
                     loadingProgressBar.setVisibility(View.GONE);
                     loginButton.setEnabled(true);
+
                     Log.e("LoginActivity", "Login Error: " + error.toString());
-                    if (error.networkResponse != null) {
-                        Log.e("LoginActivity", "Status Code: " + error.networkResponse.statusCode);
-                    }
+
+                    // Authentication check (if the user is who they say they are)
                     if (error.networkResponse != null && error.networkResponse.statusCode == 401) {
                         Toast.makeText(LoginActivity.this, "Invalid email or password.", Toast.LENGTH_LONG).show();
                     } else {
@@ -145,13 +160,14 @@ public class LoginActivity extends AppCompatActivity {
                 }
         );
 
-        // --- FIX: Disable caching for this request ---
-        // This ensures that Volley always goes to the network for a fresh response.
+        // CRITICAL: Disable caching for the login request
         jsonObjectRequest.setShouldCache(false);
-
         requestQueue.add(jsonObjectRequest);
     }
 
+    /**
+     * Navigates to the MainActivity and finishes the LoginActivity.
+     */
     private void navigateToMainActivity() {
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
