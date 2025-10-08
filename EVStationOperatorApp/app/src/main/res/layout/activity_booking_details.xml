@@ -1,169 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    android:background="#F5F5F5"
-    tools:context=".BookingDetailsActivity">
+    android:background="#F5F5F5">
 
-    <TextView
-        android:id="@+id/headerTitle"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/booking_details"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>
+        android:padding="16dp"
+        tools:context=".BookingDetailsActivity">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/bookingDetailsCard"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        app:cardCornerRadius="12dp"
-        app:cardElevation="4dp"
-        app:layout_constraintTop_toBottomOf="@id/headerTitle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/headerTitle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="16dp">
+            android:layout_marginTop="16dp"
+            android:text="@string/booking_details"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <!-- Booking ID -->
-            <TextView
-                android:id="@+id/labelBookingId"
-                android:layout_width="wrap_content"
+        <!-- EV Owner and Vehicle Details Card -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/ownerCard"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/headerTitle">
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/booking_id_label"
-                android:textStyle="bold"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
+                android:orientation="vertical"
+                android:padding="16dp">
 
-            <TextView
-                android:id="@+id/textBookingId"
-                android:layout_width="0dp"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/owner_vehicle_details"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="12dp"
+                    android:background="?android:attr/listDivider" />
+
+                <!-- Fields will be added here programmatically for clarity -->
+                <TextView android:id="@+id/textOwnerName" style="@style/DetailRow" tools:text="Owner Name: Niluuu Shaaaa"/>
+                <TextView android:id="@+id/textNic" style="@style/DetailRow" tools:text="NIC: 200007101866"/>
+                <TextView android:id="@+id/textVehicleModel" style="@style/DetailRow" tools:text="Vehicle: Nissan Leaf"/>
+                <TextView android:id="@+id/textLicensePlate" style="@style/DetailRow" tools:text="License Plate: CAT-3456"/>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Booking Details Card -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/bookingCard"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ownerCard">
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:gravity="end"
-                app:layout_constraintTop_toTopOf="@id/labelBookingId"
-                app:layout_constraintStart_toEndOf="@id/labelBookingId"
-                app:layout_constraintEnd_toEndOf="parent"
-                tools:text="BK-102934"/>
+                android:orientation="vertical"
+                android:padding="16dp">
 
-            <!-- EV Owner Name -->
-            <TextView
-                android:id="@+id/labelOwnerName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/ev_owner_name_label"
-                android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/labelBookingId"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/booking_information"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="12dp"
+                    android:background="?android:attr/listDivider" />
 
-            <TextView
-                android:id="@+id/textOwnerName"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:gravity="end"
-                app:layout_constraintTop_toTopOf="@id/labelOwnerName"
-                app:layout_constraintStart_toEndOf="@id/labelOwnerName"
-                app:layout_constraintEnd_toEndOf="parent"
-                tools:text="John Doe"/>
+                <TextView android:id="@+id/textStationName" style="@style/DetailRow" tools:text="Station: Nugegoda Perters ave"/>
+                <TextView android:id="@+id/textBookingDate" style="@style/DetailRow" tools:text="Date: Oct 05, 2025"/>
+                <TextView android:id="@+id/textStartTime" style="@style/DetailRow" tools:text="Start Time: Oct 08, 2025, 05:44 AM"/>
+                <TextView android:id="@+id/textEndTime" style="@style/DetailRow" tools:text="End Time: Oct 08, 2025, 05:44 AM"/>
+                <TextView android:id="@+id/textSlotType" style="@style/DetailRow" tools:text="Slot Type: AC"/>
+                <TextView android:id="@+id/textSlotId" style="@style/DetailRow" tools:text="Slot ID: A1"/>
+                <TextView android:id="@+id/textStatus" style="@style/DetailRow" android:textStyle="bold" tools:text="Status: Approved"/>
 
-            <!-- Reservation Time & Date -->
-            <TextView
-                android:id="@+id/labelReservationTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/reservation_time_label"
-                android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/labelOwnerName"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="16dp"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-            <TextView
-                android:id="@+id/textReservationTime"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:gravity="end"
-                app:layout_constraintTop_toTopOf="@id/labelReservationTime"
-                app:layout_constraintStart_toEndOf="@id/labelReservationTime"
-                app:layout_constraintEnd_toEndOf="parent"
-                tools:text="2025-10-02 14:30"/>
+        <Button
+            android:id="@+id/finalizeButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/button_primary_background"
+            android:padding="14dp"
+            android:text="@string/confirm_and_finalize_session"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@id/bookingCard"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="16dp"/>
 
-            <!-- Station Location -->
-            <TextView
-                android:id="@+id/labelStationLocation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/station_location_label"
-                android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/labelReservationTime"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="16dp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
 
-            <TextView
-                android:id="@+id/textStationLocation"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:gravity="end"
-                app:layout_constraintTop_toTopOf="@id/labelStationLocation"
-                app:layout_constraintStart_toEndOf="@id/labelStationLocation"
-                app:layout_constraintEnd_toEndOf="parent"
-                tools:text="Colombo 07 Station A"/>
-
-            <!-- Status -->
-            <TextView
-                android:id="@+id/labelStatus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/status_label"
-                android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/labelStationLocation"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="16dp"/>
-
-            <TextView
-                android:id="@+id/textStatus"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:gravity="end"
-                android:textStyle="bold"
-                android:textColor="@android:color/holo_orange_dark"
-                app:layout_constraintTop_toTopOf="@id/labelStatus"
-                app:layout_constraintStart_toEndOf="@id/labelStatus"
-                app:layout_constraintEnd_toEndOf="parent"
-                tools:text="Pending Confirmation"/>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
-
-    <!-- Button to confirm and finalize -->
-    <Button
-        android:id="@+id/finalizeButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/button_primary_background"
-        android:padding="14dp"
-        android:text="@string/confirm_and_finalize_session"
-        android:textColor="@android:color/white"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>

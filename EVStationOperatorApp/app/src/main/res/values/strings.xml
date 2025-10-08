@@ -14,4 +14,6 @@
     <string name="station_location_label">Station Location</string>
     <string name="status_label">Status</string>
     <string name="confirm_and_finalize_session">Confirm Session</string>
+    <string name="owner_vehicle_details">Vehicle Details</string>
+    <string name="booking_information">Booking Information</string>
 </resources>
