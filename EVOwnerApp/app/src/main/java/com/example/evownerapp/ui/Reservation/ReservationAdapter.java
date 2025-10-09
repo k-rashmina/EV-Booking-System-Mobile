@@ -1,6 +1,6 @@
 package com.example.evownerapp.ui.Reservation;
 
-import com.example.evownerapp.models.Reservation;
+import com.example.evownerapp.data.models.Reservation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

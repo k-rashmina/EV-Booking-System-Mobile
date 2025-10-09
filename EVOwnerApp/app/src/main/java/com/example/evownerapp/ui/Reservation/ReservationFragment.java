@@ -1,24 +1,43 @@
 package com.example.evownerapp.ui.Reservation;
 
-import com.example.evownerapp.models.Reservation;
+import com.example.evownerapp.databinding.ActivityMainBinding;
+import com.example.evownerapp.data.models.Reservation;
 import android.os.Bundle;
+import android.view.View;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.evownerapp.R;
+import com.google.android.material.snackbar.Snackbar;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class ReservationFragment extends AppCompatActivity {
 
-    private RecyclerView rvOngoing, rvHistory;
-    private ReservationAdapter ongoingAdapter, historyAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        RecyclerView rvOngoing, rvHistory;
+        ReservationAdapter ongoingAdapter, historyAdapter;
+        ActivityMainBinding binding;
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_reservation);
+
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        binding.appBarMain.fab.setOnClickListener(   new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null)
+                        .setAnchorView(R.id.fab).show();
+            }
+        });
 
         rvOngoing = findViewById(R.id.rvOngoing);
         rvHistory = findViewById(R.id.rvHistory);

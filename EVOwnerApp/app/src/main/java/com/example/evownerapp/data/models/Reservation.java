@@ -1,4 +1,4 @@
-package com.example.evownerapp.models;
+package com.example.evownerapp.data.models;
 
 public class Reservation {
     private String stationName;

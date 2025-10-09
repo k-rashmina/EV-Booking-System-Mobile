@@ -71,12 +71,13 @@
                 android:layout_width="18dp"
                 android:layout_height="18dp"
                 android:src="@drawable/ic_qr_code_24"
-                android:tint="@color/text_on_dark"/>
+                app:tint="@color/black"
+                android:contentDescription="Get QR code"/>
 
             <TextView
                 android:id="@+id/tvQrLabel"
                 android:text="QR"
-                android:textColor="@color/text_on_dark"
+                android:textColor="@color/black"
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
