@@ -1,5 +1,6 @@
 package com.ev.evstationoperatorapp;
 
+import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Html;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -31,9 +33,10 @@ public class BookingDetailsActivity extends AppCompatActivity {
 
     // --- UI Elements ---
     private TextView ownerNameTextView, nicTextView, vehicleModelTextView, licensePlateTextView;
-    private TextView stationNameTextView, bookingDateTextView, startTimeTextView, endTimeTextView;
+    private TextView stationNameTextView, startTimeTextView, endTimeTextView;
     private TextView slotTypeTextView, slotIdTextView, statusTextView;
     private Button finalizeButton;
+    private ProgressDialog progressDialog;
 
     // --- Session & Network ---
     private SharedPreferences sharedPreferences;
@@ -49,6 +52,10 @@ public class BookingDetailsActivity extends AppCompatActivity {
         requestQueue = Volley.newRequestQueue(this);
         sharedPreferences = getSharedPreferences(ApiConfig.PREFS_NAME, MODE_PRIVATE);
 
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Finalizing Session...");
+        progressDialog.setCancelable(false);
+
         String bookingDetailsJson = getIntent().getStringExtra("bookingDetailsJson");
         if (bookingDetailsJson != null && !bookingDetailsJson.isEmpty()) {
             parseAndDisplayBookingDetails(bookingDetailsJson);
@@ -58,7 +65,7 @@ public class BookingDetailsActivity extends AppCompatActivity {
         }
 
         finalizeButton.setOnClickListener(v -> {
-            if (currentBookingId != null) {
+            if (currentBookingId != null && !currentBookingId.equals("N/A")) {
                 finalizeSession(currentBookingId);
             } else {
                 Toast.makeText(this, "Cannot finalize: Booking ID is missing.", Toast.LENGTH_SHORT).show();
@@ -67,53 +74,57 @@ public class BookingDetailsActivity extends AppCompatActivity {
     }
 
     private void initializeViews() {
-        // Owner & Vehicle
         ownerNameTextView = findViewById(R.id.textOwnerName);
         nicTextView = findViewById(R.id.textNic);
         vehicleModelTextView = findViewById(R.id.textVehicleModel);
         licensePlateTextView = findViewById(R.id.textLicensePlate);
-        // Booking
         stationNameTextView = findViewById(R.id.textStationName);
-        bookingDateTextView = findViewById(R.id.textBookingDate);
         startTimeTextView = findViewById(R.id.textStartTime);
         endTimeTextView = findViewById(R.id.textEndTime);
         slotTypeTextView = findViewById(R.id.textSlotType);
         slotIdTextView = findViewById(R.id.textSlotId);
         statusTextView = findViewById(R.id.textStatus);
-        // Button
         finalizeButton = findViewById(R.id.finalizeButton);
     }
 
     private void parseAndDisplayBookingDetails(String jsonString) {
         try {
-            JSONObject response = new JSONObject(jsonString);
+            JSONObject details = new JSONObject(jsonString);
+            currentBookingId = details.optString("bookingId", "N/A");
+            String ownerName = details.optString("evOwnerFullName", "N/A");
+            String ownerNic = details.optString("nic", "N/A");
+            String vehicleModel = details.optString("vehicleModel", "N/A");
+            String licensePlate = details.optString("licensePlate", "N/A");
+            String stationName = details.optString("stationName", "N/A");
+            String startTime = details.optString("startTimeLocal", "N/A");
+            String endTime = details.optString("endTimeLocal", "N/A");
+            String slotType = details.optString("slotType", "N/A");
+            String slotId = details.optString("slotId", "N/A");
+            String status = details.optString("status", "N/A");
 
-            // --- Parse Nested Objects ---
-            JSONObject booking = response.optJSONObject("bookingDetails");
-            JSONObject station = response.optJSONObject("stationDetails");
-            JSONObject owner = response.optJSONObject("evOwnerProfile");
+            ownerNameTextView.setText(Html.fromHtml("<b>Owner Name:</b> " + ownerName));
+            nicTextView.setText(Html.fromHtml("<b>NIC:</b> " + ownerNic));
+            vehicleModelTextView.setText(Html.fromHtml("<b>Vehicle Model:</b> " + vehicleModel));
+            licensePlateTextView.setText(Html.fromHtml("<b>License Plate:</b> " + licensePlate));
+            stationNameTextView.setText(Html.fromHtml("<b>Station:</b> " + stationName));
+            startTimeTextView.setText(Html.fromHtml("<b>Start Time:</b> " + formatIsoDateTime(startTime)));
+            endTimeTextView.setText(Html.fromHtml("<b>End Time:</b> " + formatIsoDateTime(endTime)));
+            slotTypeTextView.setText(Html.fromHtml("<b>Slot Type:</b> " + slotType));
+            slotIdTextView.setText(Html.fromHtml("<b>Slot ID:</b> " + slotId));
 
-            if (booking == null || station == null || owner == null) {
-                Toast.makeText(this, "Incomplete booking data received.", Toast.LENGTH_LONG).show();
-                return;
+            // --- NEW LOGIC FOR SELECTIVE STATUS COLOR ---
+            String statusHtml;
+            if ("Approved".equalsIgnoreCase(status)) {
+                // Get the hex color string for our red color resource
+                String redColorHex = String.format("#%06X", (0xFFFFFF & ContextCompat.getColor(this, R.color.status_approved)));
+                statusHtml = "<b>Status:</b> <font color='" + redColorHex + "'>" + status + "</font>";
+            } else {
+                // For any other status, just make it bold without a special color
+                statusHtml = "<b>Status:</b> " + status;
             }
-
-            // --- Populate Owner & Vehicle Info ---
-            ownerNameTextView.setText(Html.fromHtml("<b>Owner Name:</b> " + owner.optString("fullName", "N/A")));
-            nicTextView.setText(Html.fromHtml("<b>NIC:</b> " + owner.optString("nic", "N/A")));
-            vehicleModelTextView.setText(Html.fromHtml("<b>Vehicle:</b> " + owner.optString("vehicleModel", "N/A")));
-            licensePlateTextView.setText(Html.fromHtml("<b>License Plate:</b> " + owner.optString("licensePlate", "N/A")));
-
-            // --- Populate Booking Info ---
-            currentBookingId = booking.optString("id");
-            stationNameTextView.setText(Html.fromHtml("<b>Station:</b> " + station.optString("stationName", "N/A")));
-            bookingDateTextView.setText(Html.fromHtml("<b>Date:</b> " + formatIsoDateOnly(booking.optString("bookingDate"))));
-            startTimeTextView.setText(Html.fromHtml("<b>Start Time:</b> " + formatIsoDateTime(booking.optString("startTime"))));
-            endTimeTextView.setText(Html.fromHtml("<b>End Time:</b> " + formatIsoDateTime(booking.optString("endTime"))));
-            slotTypeTextView.setText(Html.fromHtml("<b>Slot Type:</b> " + booking.optString("slotType", "N/A")));
-            slotIdTextView.setText(Html.fromHtml("<b>Slot ID:</b> " + booking.optString("slotId", "N/A")));
-            statusTextView.setText(Html.fromHtml("<b>Status:</b> " + booking.optString("status", "N/A")));
-
+            // Set the text using the generated HTML
+            statusTextView.setText(Html.fromHtml(statusHtml));
+            // --- END OF NEW LOGIC ---
 
         } catch (JSONException e) {
             Log.e("BookingDetailsActivity", "Error parsing booking JSON", e);
@@ -122,20 +133,27 @@ public class BookingDetailsActivity extends AppCompatActivity {
     }
 
     private void finalizeSession(String bookingId) {
+        progressDialog.show();
         String authToken = sharedPreferences.getString(ApiConfig.KEY_AUTH_TOKEN, null);
         if (authToken == null) {
+            progressDialog.dismiss();
             Toast.makeText(this, "Authentication error. Please log in again.", Toast.LENGTH_LONG).show();
             return;
         }
 
-        String url = ApiConfig.BASE_URL + "/api/Bookings/finalize/" + bookingId;
+        String url = ApiConfig.BASE_URL + "/api/Operator/finalize/" + bookingId;
 
-        JsonObjectRequest finalizeRequest = new JsonObjectRequest(Request.Method.PUT, url, null,
+        JsonObjectRequest finalizeRequest = new JsonObjectRequest(
+                Request.Method.POST,
+                url,
+                null,
                 response -> {
+                    progressDialog.dismiss();
                     Toast.makeText(this, "Session Finalized Successfully!", Toast.LENGTH_LONG).show();
                     finish();
                 },
                 error -> {
+                    progressDialog.dismiss();
                     Log.e("BookingDetailsActivity", "Finalize Error: " + error.toString());
                     int statusCode = error.networkResponse != null ? error.networkResponse.statusCode : 0;
                     if (statusCode == 401) {
@@ -156,29 +174,27 @@ public class BookingDetailsActivity extends AppCompatActivity {
 
     private String formatIsoDateTime(String isoDateString) {
         if (isoDateString == null || isoDateString.equals("N/A")) return "N/A";
-        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
-        inputFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        Date date = parseIsoDate(isoDateString);
+        if (date == null) return isoDateString;
         SimpleDateFormat outputFormat = new SimpleDateFormat("MMM dd, yyyy, hh:mm a", Locale.getDefault());
         outputFormat.setTimeZone(TimeZone.getDefault());
-        try {
-            Date date = inputFormat.parse(isoDateString.split("\\.")[0]);
-            return outputFormat.format(date);
-        } catch (ParseException e) {
-            return isoDateString;
-        }
+        return outputFormat.format(date);
     }
 
-    private String formatIsoDateOnly(String isoDateString) {
-        if (isoDateString == null || isoDateString.equals("N/A")) return "N/A";
-        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
-        inputFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-        SimpleDateFormat outputFormat = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());
-        outputFormat.setTimeZone(TimeZone.getDefault());
+    private Date parseIsoDate(String isoDateString) {
+        SimpleDateFormat inputFormatWithMillis = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
+        inputFormatWithMillis.setTimeZone(TimeZone.getTimeZone("UTC"));
         try {
-            Date date = inputFormat.parse(isoDateString.split("\\.")[0]);
-            return outputFormat.format(date);
+            return inputFormatWithMillis.parse(isoDateString);
         } catch (ParseException e) {
-            return isoDateString;
+            try {
+                SimpleDateFormat inputFormatWithoutMillis = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault());
+                inputFormatWithoutMillis.setTimeZone(TimeZone.getTimeZone("UTC"));
+                return inputFormatWithoutMillis.parse(isoDateString);
+            } catch (ParseException pe) {
+                pe.printStackTrace();
+                return null;
+            }
         }
     }
 }

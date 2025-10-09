@@ -2,4 +2,10 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Status Colors -->
+    <color name="status_approved">#388E3C</color> <!-- Red 700 -->
+    <color name="status_completed">#757575</color> <!-- Green 700 -->
+    <color name="status_cancelled">#D32F2F</color> <!-- Grey 600 -->
+    <color name="status_default">#000000</color> <!-- Black for any other status -->
 </resources>

@@ -98,7 +98,6 @@
                     android:background="?android:attr/listDivider" />
 
                 <TextView android:id="@+id/textStationName" style="@style/DetailRow" tools:text="Station: Nugegoda Perters ave"/>
-                <TextView android:id="@+id/textBookingDate" style="@style/DetailRow" tools:text="Date: Oct 05, 2025"/>
                 <TextView android:id="@+id/textStartTime" style="@style/DetailRow" tools:text="Start Time: Oct 08, 2025, 05:44 AM"/>
                 <TextView android:id="@+id/textEndTime" style="@style/DetailRow" tools:text="End Time: Oct 08, 2025, 05:44 AM"/>
                 <TextView android:id="@+id/textSlotType" style="@style/DetailRow" tools:text="Slot Type: AC"/>
