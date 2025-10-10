@@ -17,12 +17,16 @@
     <string name="hint_full_name">Full name</string>
     <string name="hint_email">Email</string>
     <string name="hint_phone">Phone</string>
+    <string name="hint_address">Address</string>
+    <string name="hint_vehicle_model">Vehicle Model</string>
+    <string name="hint_license_plate">License Plate</string>
     <string name="hint_password">Password</string>
     <string name="hint_pick_date">Pick a date</string>
     <string name="hint_pick_time">Pick a time</string>
     <string name="hint_duration_mins">Duration (mins)</string>
     <string name="action_login">Log in</string>
     <string name="action_go_register">Don\'t have an account? sign up</string>
+    <string name="action_go_login">Already have an account? sign in</string>
     <string name="action_create_account">Create account</string>
     <string name="action_update">Update</string>
     <string name="action_deactivate">Deactivate</string>

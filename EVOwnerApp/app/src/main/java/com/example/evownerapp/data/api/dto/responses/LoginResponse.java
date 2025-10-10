@@ -2,17 +2,17 @@ package com.example.evownerapp.data.api.dto.responses;
 
 public class LoginResponse {
     private final String token;
-    private final String userNic;
+    private final String userRole;
     private final String userName;
 
-    public LoginResponse(String token, String userNic, String userName) {
+    public LoginResponse(String token, String role, String fullName) {
         this.token = token;
-        this.userNic = userNic;
-        this.userName = userName;
+        this.userRole = role;
+        this.userName = fullName;
     }
 
     public String getToken()    { return token; }
-    public String getUserNic()  { return userNic; }
+    public String getUserRole()  { return userRole; }
     public String getUserName() { return userName; }
 }
 

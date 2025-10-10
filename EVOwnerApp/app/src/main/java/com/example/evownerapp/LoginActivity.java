@@ -20,7 +20,7 @@ import com.example.evownerapp.ui.Dashboard.DashboardFragment;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private EditText etNic, etPassword;
+    private EditText editTextEmail, editTextPassword;
     private Button btnLogin;
     private TextView tvGoRegister;
     private ProgressBar progress;
@@ -30,17 +30,18 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        final String baseUrl = "http://192.168.1.5:5148/";
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        etNic       = findViewById(R.id.etNic);
-        etPassword  = findViewById(R.id.etPassword);
+        editTextEmail       = findViewById(R.id.editTextEmail);
+        editTextPassword  = findViewById(R.id.editTextPassword);
         btnLogin    = findViewById(R.id.btnLogin);
         tvGoRegister= findViewById(R.id.tvGoRegister);
         progress    = findViewById(R.id.progress);
 
-        // TODO: replace with your actual base URL
-        authService = new AuthService(this, "https://api.example.com/");
+        authService = new AuthService(this, baseUrl);
         prefs       = new Preferences(this);
 
         // If already logged in, jump to dashboard
@@ -56,31 +57,30 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void doLogin() {
-        String nic = etNic.getText().toString().trim();
-        String pw  = etPassword.getText().toString();
+        String email = editTextEmail.getText().toString().trim();
+        String pw  = editTextPassword.getText().toString();
 
-        if (nic.isEmpty()) {
-            etNic.setError("NIC is required");
-            etNic.requestFocus();
+        if (email.isEmpty()) {
+            editTextEmail.setError("Please Enter a Valid Email");
+            editTextEmail.requestFocus();
             return;
         }
         if (pw.isEmpty()) {
-            etPassword.setError("Password is required");
-            etPassword.requestFocus();
+            editTextPassword.setError("Please Enter a Password");
+            editTextPassword.requestFocus();
             return;
         }
 
         setLoading(true);
 
         AppExecutors.io().execute(() -> {
-            Result<LoginResponse> result = authService.login(nic, pw);
+            Result<LoginResponse> result = authService.login(email, pw);
             AppExecutors.main().post(() -> {
                 setLoading(false);
                 if (result.isSuccess()) {
                     LoginResponse r = result.getData();
                     // Save token & basic identity
                     prefs.setToken(r.getToken());
-                    prefs.setCurrentNic(r.getUserNic());
                     prefs.setCurrentName(r.getUserName());
                     Toast.makeText(this, "Welcome " + r.getUserName(), Toast.LENGTH_SHORT).show();
                     openDashboardAndFinish();
@@ -95,14 +95,14 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void openDashboardAndFinish() {
-        startActivity(new Intent(this, DashboardFragment.class));
+        startActivity(new Intent(this, MainActivity.class));
         finish();
     }
 
     private void setLoading(boolean loading) {
         progress.setVisibility(loading ? View.VISIBLE : View.GONE);
         btnLogin.setEnabled(!loading);
-        etNic.setEnabled(!loading);
-        etPassword.setEnabled(!loading);
+        editTextEmail.setEnabled(!loading);
+        editTextPassword.setEnabled(!loading);
     }
 }
