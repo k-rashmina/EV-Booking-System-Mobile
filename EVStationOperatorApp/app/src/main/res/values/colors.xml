@@ -3,9 +3,16 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <!-- UPDATED: Define the logo green as the primary theme color -->
+    <color name="colorPrimary">#A4C639</color>
+    <color name="colorPrimaryDark">#829e2d</color> <!-- A darker shade for the status bar -->
+
     <!-- Status Colors -->
     <color name="status_approved">#388E3C</color> <!-- Red 700 -->
     <color name="status_completed">#757575</color> <!-- Green 700 -->
     <color name="status_cancelled">#D32F2F</color> <!-- Grey 600 -->
     <color name="status_default">#000000</color> <!-- Black for any other status -->
+
+    <color name="logo_green">#A4C639</color>
+
 </resources>

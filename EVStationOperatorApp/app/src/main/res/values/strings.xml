@@ -16,4 +16,10 @@
     <string name="confirm_and_finalize_session">Finalize Booking</string>
     <string name="owner_vehicle_details">Vehicle Details</string>
     <string name="booking_information">Booking Information</string>
+
+    <!-- Add these inside your <resources> tag -->
+    <string name="instructions_title">How to Use</string>
+    <string name="instruction_step_1">Tap the button to scan the customer\'s QR code.</string>
+    <string name="instruction_step_2">Verify the booking details on the next screen.</string>
+    <string name="instruction_step_3">Finalize the session after charging is complete.</string>
 </resources>
