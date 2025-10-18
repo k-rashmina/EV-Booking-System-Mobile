@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:background="@color/secondary" android:padding="16dp">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="16dp">
+
+        <EditText android:id="@+id/etRegNic" android:layout_width="0dp" android:layout_height="wrap_content"
+            android:hint="@string/hint_nic" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" android:textColor="@color/white" android:textColorHint="@color/white"/>
+
+        <EditText android:id="@+id/etRegName" android:layout_width="0dp" android:layout_height="wrap_content"
+            android:hint="@string/hint_full_name" app:layout_constraintTop_toBottomOf="@id/etRegNic"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="12dp" android:textColor="@color/white" android:textColorHint="@color/white"/>
+
+        <EditText android:id="@+id/etRegEmail" android:layout_width="0dp" android:layout_height="wrap_content"
+            android:inputType="textEmailAddress" android:hint="@string/hint_email"
+            app:layout_constraintTop_toBottomOf="@id/etRegName" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="12dp" android:textColor="@color/white" android:textColorHint="@color/white"/>
+
+        <EditText android:id="@+id/etRegPhone" android:layout_width="0dp" android:layout_height="wrap_content"
+            android:inputType="phone" android:hint="@string/hint_phone"
+            app:layout_constraintTop_toBottomOf="@id/etRegEmail" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="12dp" android:textColor="@color/white" android:textColorHint="@color/white"/>
+
+        <EditText android:id="@+id/etRegAddress" android:layout_width="0dp" android:layout_height="wrap_content"
+            android:inputType="textPostalAddress" android:hint="@string/hint_address"
+            app:layout_constraintTop_toBottomOf="@id/etRegPhone" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="12dp" android:textColor="@color/white" android:textColorHint="@color/white"/>
+
+        <EditText android:id="@+id/etRegVehicleModel" android:layout_width="0dp" android:layout_height="wrap_content"
+            android:inputType="text" android:hint="@string/hint_vehicle_model"
+            app:layout_constraintTop_toBottomOf="@id/etRegAddress" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="12dp" android:textColor="@color/white" android:textColorHint="@color/white"/>
+
+        <EditText android:id="@+id/etRegLicensePlate" android:layout_width="0dp" android:layout_height="wrap_content"
+            android:inputType="text" android:hint="@string/hint_license_plate"
+            app:layout_constraintTop_toBottomOf="@id/etRegVehicleModel" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="12dp" android:textColor="@color/white" android:textColorHint="@color/white"/>
+
+        <EditText android:id="@+id/etRegPassword" android:layout_width="0dp" android:layout_height="wrap_content"
+            android:inputType="textPassword" android:hint="@string/hint_password"
+            app:layout_constraintTop_toBottomOf="@id/etRegLicensePlate" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="12dp" android:textColor="@color/white" android:textColorHint="@color/white"/>
+
+        <Button android:id="@+id/btnCreateAccount" android:layout_width="0dp" android:layout_height="wrap_content"
+            android:text="@string/action_create_account" app:layout_constraintTop_toBottomOf="@id/etRegPassword"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp" android:textColor="@color/black" android:backgroundTint="@color/accent" />
+        <TextView
+            android:id="@+id/tvGoLogin" android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="@string/action_go_login" app:layout_constraintTop_toBottomOf="@id/btnCreateAccount"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="12dp" android:textColor="@color/accent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

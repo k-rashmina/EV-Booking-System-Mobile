@@ -1,0 +1,51 @@
+<resources>
+    <string name="app_name">EVOwnerApp</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">EV Booking</string>
+    <string name="nav_header_subtitle">ev@booking.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_dashboard">Dashboard</string>
+    <string name="menu_reservation">Reservations</string>
+    <string name="menu_profile">Profile</string>
+
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_my_bookings">My Bookings</string>
+    <string name="hint_nic">NIC</string>
+    <string name="hint_full_name">Full name</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_phone">Phone</string>
+    <string name="hint_address">Address</string>
+    <string name="hint_vehicle_model">Vehicle Model</string>
+    <string name="hint_license_plate">License Plate</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_pick_date">Pick a date</string>
+    <string name="hint_pick_time">Pick a time</string>
+    <string name="hint_duration_mins">Duration (mins)</string>
+    <string name="action_login">Log in</string>
+    <string name="action_go_register">Don\'t have an account? sign up</string>
+    <string name="action_go_login">Already have an account? sign in</string>
+    <string name="action_create_account">Create account</string>
+    <string name="action_update">Update</string>
+    <string name="action_deactivate">Deactivate</string>
+    <string name="action_find_nearby_stations">Find nearby stations</string>
+    <string name="action_my_bookings">My bookings</string>
+    <string name="action_book_here">Book here</string>
+    <string name="action_continue">Continue</string>
+    <string name="action_confirm">Confirm</string>
+    <string name="action_edit">Edit</string>
+    <string name="action_modify">Modify</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_share">Share</string>
+    <string name="label_booking_summary">Booking summary</string>
+    <string name="label_show_this_qr">Show this QR at the station</string>
+    <string name="label_pending">Pending</string>
+    <string name="label_approved">Approved</string>
+    <string name="rule_within_7_days">Note: Bookings must be within the next 7 days.</string>
+    <string name="rule_modify_cancel_12h">Modify/Cancel only if 12+ hours remain.</string>
+    <string name="action_yes">Yes</string>
+    <string name="action_no">No</string>
+    <string name="add_reservation">Add a reservation</string>
+</resources>

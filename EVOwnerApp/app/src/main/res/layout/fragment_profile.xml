@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:background="@color/secondary">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="16dp">
+        <TextView
+            android:id="@+id/tvTitleProfile"
+            android:text="Profile"
+            android:textStyle="bold"
+            android:textSize="26sp"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+        <ImageView
+            android:id="@+id/imgProfile"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:contentDescription="@string/app_name"
+            app:layout_constraintBottom_toTopOf="@+id/etProfileNic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@mipmap/ic_launcher"
+            android:layout_marginTop="50dp"/>
+
+        <EditText android:id="@+id/etProfileNic" android:enabled="false" android:layout_width="0dp"
+            android:layout_height="wrap_content" android:hint="@string/hint_nic"
+            app:layout_constraintTop_toBottomOf="@+id/imgProfile" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="50dp" android:textColor="@color/white" android:textColorHint="@color/white"/>
+
+        <EditText android:id="@+id/etProfileName" android:layout_width="0dp" android:layout_height="wrap_content"
+            android:hint="@string/hint_full_name" app:layout_constraintTop_toBottomOf="@id/etProfileNic"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="12dp" android:textColor="@color/white" android:textColorHint="@color/white"/>
+
+        <EditText android:id="@+id/etProfileEmail" android:layout_width="0dp" android:layout_height="wrap_content"
+            android:inputType="textEmailAddress" android:hint="@string/hint_email"
+            app:layout_constraintTop_toBottomOf="@id/etProfileName" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="12dp" android:textColor="@color/white" android:textColorHint="@color/white"/>
+
+        <EditText android:id="@+id/etProfilePhone" android:layout_width="0dp" android:layout_height="wrap_content"
+            android:inputType="phone" android:hint="@string/hint_phone"
+            app:layout_constraintTop_toBottomOf="@id/etProfileEmail" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="12dp" android:textColor="@color/white" android:textColorHint="@color/white"/>
+
+        <EditText android:id="@+id/etProfileAddress" android:layout_width="0dp" android:layout_height="wrap_content"
+            android:inputType="textPostalAddress" android:hint="@string/hint_address"
+            app:layout_constraintTop_toBottomOf="@id/etProfilePhone" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="12dp" android:textColor="@color/white" android:textColorHint="@color/white"/>
+
+        <EditText android:id="@+id/etProfileVehicleModel" android:layout_width="0dp" android:layout_height="wrap_content"
+            android:inputType="text" android:hint="@string/hint_vehicle_model"
+            app:layout_constraintTop_toBottomOf="@id/etProfileAddress" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="12dp" android:textColor="@color/white" android:textColorHint="@color/white"/>
+
+        <EditText android:id="@+id/etProfileLicensePlate" android:layout_width="0dp" android:layout_height="wrap_content"
+            android:inputType="text" android:hint="@string/hint_license_plate"
+            app:layout_constraintTop_toBottomOf="@id/etProfileVehicleModel" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="12dp" android:textColor="@color/white" android:textColorHint="@color/white"/>
+
+        <Button android:id="@+id/btnUpdateProfile" android:layout_width="0dp" android:layout_height="wrap_content"
+            android:text="@string/action_update" app:layout_constraintTop_toBottomOf="@id/etProfileLicensePlate"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp" android:backgroundTint="@color/accent" android:textColor="@color/black"/>
+
+        <Button android:id="@+id/btnDeactivate" android:layout_width="0dp" android:layout_height="wrap_content"
+            android:text="@string/action_deactivate" android:backgroundTint="@android:color/holo_red_dark"
+            app:layout_constraintTop_toBottomOf="@id/btnUpdateProfile" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="12dp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
